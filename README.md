@@ -109,3 +109,16 @@ All tests verify:
 - Data integrity
 
 Run the tests using `java -cp bin finance.TestRunner` to see all test results.
+
+## Configuration
+
+Default settings in `AppConfiguration`:
+- Default Currency: USD
+- Maximum Budgets: 10
+
+These can be modified programmatically through the configuration class.
+
+## Authors
+- Mateusz Konat - 164200
+- Mateusz Tyburski - 165545
+- Mikołaj Strugarek - 166427
