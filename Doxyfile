@@ -1,0 +1,14 @@
+PROJECT_NAME           = "Finance Manager"
+PROJECT_BRIEF          = "Personal Finance Management System"
+OUTPUT_DIRECTORY       = docs
+INPUT                  = src/main/java
+RECURSIVE              = YES
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = YES
+EXTRACT_STATIC         = YES
+OPTIMIZE_OUTPUT_JAVA   = YES
+JAVADOC_AUTOBRIEF      = YES
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+HTML_OUTPUT            = html
+FILE_PATTERNS          = *.java
