@@ -159,7 +159,7 @@ Run the tests using `java -cp bin finance.TestRunner` to see all test results.
 <!-- TOC --><a name="docs"></a>
 ## Docs
 
-You can view project documentation [here](https://undemalum.github.io/finance-manager/)
+You can view project documentation [here](https://undemalum.github.io/finance-manager/).
 
 <!-- TOC --><a name="configuration"></a>
 ## Configuration
