@@ -1,0 +1,21 @@
+var searchData=
+[
+  ['savedata_0',['saveData',['../interfacefinance_1_1interfaces_1_1_i_data_manager.html#ae357fba29501eb8b6d7529bad8c06d3b',1,'finance.interfaces.IDataManager.saveData()'],['../classfinance_1_1managers_1_1_file_manager.html#a789ac75a4e69f640b13fc55148fb6e42',1,'finance.managers.FileManager.saveData()']]],
+  ['savesystemstate_1',['saveSystemState',['../classfinance_1_1system_1_1_financial_system.html#aad019b934e05933e9550600c24238428',1,'finance::system::FinancialSystem']]],
+  ['savingsgoal_2',['SavingsGoal',['../classfinance_1_1models_1_1_savings_goal.html#a9beab44c33204dbad58d0e1ad8bbf7d9',1,'finance::models::SavingsGoal']]],
+  ['savingsgoaltojson_3',['savingsGoalToJson',['../classfinance_1_1utils_1_1_json_util.html#aad2d927a3a750a19220ccf5c1de3c003',1,'finance::utils::JsonUtil']]],
+  ['setamount_4',['setAmount',['../classfinance_1_1models_1_1_transaction.html#a119ca473f9f9f78ccc5a20fb45d3b2e9',1,'finance::models::Transaction']]],
+  ['setbalance_5',['setBalance',['../classfinance_1_1models_1_1_account.html#ae62903493f34476cadbd2d0e7a299bdc',1,'finance::models::Account']]],
+  ['setcategory_6',['setCategory',['../classfinance_1_1models_1_1_budget.html#aa597bc07ef921bc5b57b623d4b84234f',1,'finance.models.Budget.setCategory()'],['../classfinance_1_1models_1_1_transaction.html#af51167cb0f70462a52080296b632e59c',1,'finance.models.Transaction.setCategory(TransactionCategory category)']]],
+  ['setdate_7',['setDate',['../classfinance_1_1models_1_1_transaction.html#a0efab9d1496ac94ce0eae4d7b86695d5',1,'finance.models.Transaction.setDate()'],['../classfinance_1_1reports_1_1_report.html#aac8c9eedfd8c62bc86b99e88c3a62e2d',1,'finance.reports.Report.setDate()']]],
+  ['setdefaultcurrency_8',['setDefaultCurrency',['../classfinance_1_1config_1_1_app_configuration.html#a5ca488f27b16359f1892f0417f4481a2',1,'finance::config::AppConfiguration']]],
+  ['setdescription_9',['setDescription',['../classfinance_1_1models_1_1_transaction.html#ab4dd83ca19c161d842a89c8bfdb13c85',1,'finance::models::Transaction']]],
+  ['setfilepath_10',['setFilePath',['../classfinance_1_1managers_1_1_file_manager.html#a4110fa68eb35cf98c89dd567ad94cc42',1,'finance::managers::FileManager']]],
+  ['setlimit_11',['setLimit',['../classfinance_1_1models_1_1_budget.html#a29a31e2f95ae96faa39f97e52ef160b4',1,'finance::models::Budget']]],
+  ['setmaxbudgets_12',['setMaxBudgets',['../classfinance_1_1config_1_1_app_configuration.html#ad34eb387fa39a309f2de9027f4f0911c',1,'finance::config::AppConfiguration']]],
+  ['setname_13',['setName',['../classfinance_1_1models_1_1_account.html#aa5e59929eb25b21694d9ef29d4345def',1,'finance.models.Account.setName()'],['../classfinance_1_1models_1_1_savings_goal.html#a2e2a6cc414b6080f676a0ffd1f7c5ec3',1,'finance.models.SavingsGoal.setName(String name)']]],
+  ['settargetamount_14',['setTargetAmount',['../classfinance_1_1models_1_1_savings_goal.html#af6aacfa11f97b451d1a47aff21540b72',1,'finance::models::SavingsGoal']]],
+  ['settitle_15',['setTitle',['../classfinance_1_1reports_1_1_report.html#abee3b8e28704ce40b30ed5253beb47e7',1,'finance::reports::Report']]],
+  ['settype_16',['setType',['../classfinance_1_1models_1_1_account.html#a020decdb26a193df4144f11412aeff04',1,'finance.models.Account.setType()'],['../classfinance_1_1models_1_1_transaction.html#a1e0c4ef3117ae8e97e6b0bf86a3b57ef',1,'finance.models.Transaction.setType()']]],
+  ['splittoplevel_17',['splitTopLevel',['../classfinance_1_1utils_1_1_json_util.html#aa467c6ea217154d5adac2cab61e617d5',1,'finance::utils::JsonUtil']]]
+];
