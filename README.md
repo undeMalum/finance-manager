@@ -41,3 +41,25 @@ This application helps users manage their financial activities including account
 - Export data to file
 - Import data from file
 - Persistent storage support
+
+## Compilation Instructions (Windows 11)
+
+### Compile Main Application
+```powershell
+javac -d bin -sourcepath src/main/java (Get-ChildItem -Path src/main/java -Recurse -Filter *.java).FullName
+```
+
+### Compile Tests
+```powershell
+javac -cp bin -d bin -sourcepath src/test/java (Get-ChildItem -Path src/test/java -Recurse -Filter *.java).FullName
+```
+
+### Run Main Application
+```powershell
+java -cp bin finance.Main
+```
+
+### Run Unit Tests
+```powershell
+java -cp bin finance.TestRunner
+```
