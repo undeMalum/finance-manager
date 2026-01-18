@@ -63,3 +63,49 @@ java -cp bin finance.Main
 ```powershell
 java -cp bin finance.TestRunner
 ```
+
+## Usage Guide
+
+### Starting the Application
+
+When you start the application, example data is automatically loaded to demonstrate functionality:
+- 3 pre-configured accounts (Main Account, Savings Account, Teen Account)
+- Sample transactions (salary, groceries, gas, entertainment)
+- Example budgets for Food, Transportation, and Entertainment
+- Demo savings goals (Vacation Fund, Emergency Fund)
+
+### Main Menu Options
+
+1. **Manage Accounts** - Create, view, edit, or delete accounts
+2. **Manage Transactions** - Add, view, filter, edit, or delete transactions
+3. **Manage Budgets** - Create and monitor spending budgets
+4. **Manage Savings Goals** - Track progress toward financial goals
+5. **Generate Monthly Report** - View detailed monthly summaries
+6. **Export Data** - Save data to file
+7. **Import Data** - Load data from file
+0. **Exit** - Close the application
+
+### Example Workflow
+
+1. View existing accounts (Option 1 → 2)
+2. Add a new transaction (Option 2 → 1)
+3. Check budget status (Option 3 → 3)
+4. View savings progress (Option 4 → 3)
+5. Generate monthly report for January 2026 (Option 5)
+
+## Testing
+
+The application includes comprehensive unit tests for:
+- Account operations (deposits, withdrawals)
+- Transaction management
+- Budget tracking
+- Savings goal progress
+- System integration tests
+
+All tests verify:
+- Normal operation
+- Error conditions
+- Edge cases
+- Data integrity
+
+Run the tests using `java -cp bin finance.TestRunner` to see all test results.
