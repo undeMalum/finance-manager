@@ -8,6 +8,10 @@ import java.util.*;
 
 public class JsonUtil {
 
+    /** 
+     * @param system
+     * @return String
+     */
     public static String exportToJson(FinancialSystem system) {
         StringBuilder json = new StringBuilder();
         json.append("{\n");
@@ -52,6 +56,11 @@ public class JsonUtil {
         return json.toString();
     }
 
+    /** 
+     * @param account
+     * @param indent
+     * @return String
+     */
     private static String accountToJson(Account account, int indent) {
         String spaces = " ".repeat(indent);
         StringBuilder json = new StringBuilder();
@@ -64,6 +73,11 @@ public class JsonUtil {
         return json.toString();
     }
 
+    /** 
+     * @param t
+     * @param indent
+     * @return String
+     */
     private static String transactionToJson(Transaction t, int indent) {
         String spaces = " ".repeat(indent);
         StringBuilder json = new StringBuilder();
@@ -78,6 +92,11 @@ public class JsonUtil {
         return json.toString();
     }
 
+    /** 
+     * @param budget
+     * @param indent
+     * @return String
+     */
     private static String budgetToJson(Budget budget, int indent) {
         String spaces = " ".repeat(indent);
         StringBuilder json = new StringBuilder();
@@ -90,6 +109,11 @@ public class JsonUtil {
         return json.toString();
     }
 
+    /** 
+     * @param goal
+     * @param indent
+     * @return String
+     */
     private static String savingsGoalToJson(SavingsGoal goal, int indent) {
         String spaces = " ".repeat(indent);
         StringBuilder json = new StringBuilder();
@@ -102,6 +126,11 @@ public class JsonUtil {
         return json.toString();
     }
 
+    /** 
+     * @param filePath
+     * @return Map<String, Object>
+     * @throws IOException
+     */
     public static Map<String, Object> importFromJson(String filePath) throws IOException {
         StringBuilder content = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -114,6 +143,10 @@ public class JsonUtil {
         return parseJson(content.toString());
     }
 
+    /** 
+     * @param json
+     * @return Map<String, Object>
+     */
     private static Map<String, Object> parseJson(String json) {
         Map<String, Object> result = new HashMap<>();
         
@@ -149,6 +182,10 @@ public class JsonUtil {
         return result;
     }
 
+    /** 
+     * @param json
+     * @return String[]
+     */
     private static String[] splitTopLevel(String json) {
         List<String> parts = new ArrayList<>();
         int depth = 0;
@@ -180,22 +217,42 @@ public class JsonUtil {
         return parts.toArray(new String[0]);
     }
 
+    /** 
+     * @param json
+     * @return List<Map<String, String>>
+     */
     private static List<Map<String, String>> parseAccountArray(String json) {
         return parseObjectArray(json);
     }
 
+    /** 
+     * @param json
+     * @return List<Map<String, String>>
+     */
     private static List<Map<String, String>> parseTransactionArray(String json) {
         return parseObjectArray(json);
     }
 
+    /** 
+     * @param json
+     * @return List<Map<String, String>>
+     */
     private static List<Map<String, String>> parseBudgetArray(String json) {
         return parseObjectArray(json);
     }
 
+    /** 
+     * @param json
+     * @return List<Map<String, String>>
+     */
     private static List<Map<String, String>> parseSavingsGoalArray(String json) {
         return parseObjectArray(json);
     }
 
+    /** 
+     * @param json
+     * @return List<Map<String, String>>
+     */
     private static List<Map<String, String>> parseObjectArray(String json) {
         List<Map<String, String>> objects = new ArrayList<>();
         
@@ -234,6 +291,10 @@ public class JsonUtil {
         return objects;
     }
 
+    /** 
+     * @param json
+     * @return Map<String, String>
+     */
     private static Map<String, String> parseObject(String json) {
         Map<String, String> obj = new HashMap<>();
         
@@ -262,6 +323,10 @@ public class JsonUtil {
         return obj;
     }
 
+    /** 
+     * @param str
+     * @return String
+     */
     private static String escape(String str) {
         return str.replace("\\", "\\\\")
                   .replace("\"", "\\\"")
@@ -270,14 +335,26 @@ public class JsonUtil {
                   .replace("\t", "\\t");
     }
 
+    /** 
+     * @param str
+     * @return AccountType
+     */
     public static AccountType parseAccountType(String str) {
         return AccountType.valueOf(str);
     }
 
+    /** 
+     * @param str
+     * @return TransactionCategory
+     */
     public static TransactionCategory parseTransactionCategory(String str) {
         return TransactionCategory.valueOf(str);
     }
 
+    /** 
+     * @param str
+     * @return TransactionType
+     */
     public static TransactionType parseTransactionType(String str) {
         return TransactionType.valueOf(str);
     }

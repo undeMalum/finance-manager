@@ -17,6 +17,9 @@ public class Main {
     private static FinancialSystem system;
     private static Scanner scanner;
 
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
         AppConfiguration.loadConfiguration();
         FileManager fileManager = new FileManager("financial_data.txt");
@@ -86,6 +89,9 @@ public class Main {
         System.out.println("========================================");
     }
 
+    /** 
+     * @throws FinanceException
+     */
     private static void manageAccounts() throws FinanceException {
         System.out.println("\n--- ACCOUNT MANAGEMENT ---");
         System.out.println("1. Add Account");
@@ -116,6 +122,9 @@ public class Main {
         }
     }
 
+    /** 
+     * @throws FinanceException
+     */
     private static void addAccount() throws FinanceException {
         System.out.println("\n--- ADD ACCOUNT ---");
         String name = getStringInput("Enter account name: ");
@@ -163,6 +172,9 @@ public class Main {
         }
     }
 
+    /** 
+     * @throws FinanceException
+     */
     private static void editAccount() throws FinanceException {
         viewAllAccounts();
         int id = getIntInput("Enter account ID to edit: ");
@@ -191,6 +203,9 @@ public class Main {
         System.out.println("Account updated successfully!");
     }
 
+    /** 
+     * @throws FinanceException
+     */
     private static void deleteAccount() throws FinanceException {
         viewAllAccounts();
         int id = getIntInput("Enter account ID to delete: ");
@@ -198,6 +213,9 @@ public class Main {
         System.out.println("Account deleted successfully!");
     }
 
+    /** 
+     * @throws FinanceException
+     */
     private static void manageTransactions() throws FinanceException {
         System.out.println("\n--- TRANSACTION MANAGEMENT ---");
         System.out.println("1. Add Transaction");
@@ -232,6 +250,9 @@ public class Main {
         }
     }
 
+    /** 
+     * @throws FinanceException
+     */
     private static void addTransaction() throws FinanceException {
         viewAllAccounts();
         int accountId = getIntInput("Enter account ID: ");
@@ -359,6 +380,9 @@ public class Main {
         }
     }
 
+    /** 
+     * @throws FinanceException
+     */
     private static void editTransaction() throws FinanceException {
         viewAllAccounts();
         int accountId = getIntInput("Enter account ID: ");
@@ -382,6 +406,9 @@ public class Main {
         System.out.println("Transaction updated successfully!");
     }
 
+    /** 
+     * @throws FinanceException
+     */
     private static void deleteTransaction() throws FinanceException {
         viewAllAccounts();
         int accountId = getIntInput("Enter account ID: ");
@@ -402,6 +429,9 @@ public class Main {
         System.out.println("Transaction deleted successfully!");
     }
 
+    /** 
+     * @throws FinanceException
+     */
     private static void manageBudgets() throws FinanceException {
         System.out.println("\n--- BUDGET MANAGEMENT ---");
         System.out.println("1. Create Budget");
@@ -436,6 +466,9 @@ public class Main {
         }
     }
 
+    /** 
+     * @throws FinanceException
+     */
     private static void createBudget() throws FinanceException {
         System.out.println("\n--- CREATE BUDGET ---");
         double limit = getDoubleInput("Enter budget limit: ");
@@ -515,6 +548,9 @@ public class Main {
         }
     }
 
+    /** 
+     * @throws FinanceException
+     */
     private static void updateBudget() throws FinanceException {
         viewAllBudgets();
         int id = getIntInput("Enter budget ID to update: ");
@@ -523,6 +559,9 @@ public class Main {
         System.out.println("Budget updated successfully!");
     }
 
+    /** 
+     * @throws FinanceException
+     */
     private static void deleteBudget() throws FinanceException {
         viewAllBudgets();
         int id = getIntInput("Enter budget ID to delete: ");
@@ -530,6 +569,9 @@ public class Main {
         System.out.println("Budget deleted successfully!");
     }
 
+    /** 
+     * @throws FinanceException
+     */
     private static void manageSavingsGoals() throws FinanceException {
         System.out.println("\n--- SAVINGS GOALS MANAGEMENT ---");
         System.out.println("1. Create Savings Goal");
@@ -568,6 +610,9 @@ public class Main {
         }
     }
 
+    /** 
+     * @throws FinanceException
+     */
     private static void createSavingsGoal() throws FinanceException {
         System.out.println("\n--- CREATE SAVINGS GOAL ---");
         String name = getStringInput("Enter goal name: ");
@@ -631,6 +676,9 @@ public class Main {
         }
     }
 
+    /** 
+     * @throws FinanceException
+     */
     private static void depositToGoal() throws FinanceException {
         viewAllSavingsGoals();
         int id = getIntInput("Enter goal ID: ");
@@ -639,6 +687,9 @@ public class Main {
         System.out.println("Deposit successful!");
     }
 
+    /** 
+     * @throws FinanceException
+     */
     private static void updateSavingsGoal() throws FinanceException {
         viewAllSavingsGoals();
         int id = getIntInput("Enter goal ID to update: ");
@@ -650,6 +701,9 @@ public class Main {
         System.out.println("Savings goal updated successfully!");
     }
 
+    /** 
+     * @throws FinanceException
+     */
     private static void deleteSavingsGoal() throws FinanceException {
         viewAllSavingsGoals();
         int id = getIntInput("Enter goal ID to delete: ");
@@ -707,6 +761,10 @@ public class Main {
         }
     }
     
+    /** 
+     * @param data
+     * @throws FinanceException
+     */
     private static void loadDataFromMap(Map<String, Object> data) throws FinanceException {
         List<Map<String, String>> accounts = (List<Map<String, String>>) data.get("accounts");
         List<Map<String, String>> transactions = (List<Map<String, String>>) data.get("transactions");
@@ -810,6 +868,10 @@ public class Main {
         }
     }
 
+    /** 
+     * @param prompt
+     * @return int
+     */
     private static int getIntInput(String prompt) {
         System.out.print(prompt);
         while (!scanner.hasNextInt()) {
@@ -821,6 +883,10 @@ public class Main {
         return value;
     }
 
+    /** 
+     * @param prompt
+     * @return double
+     */
     private static double getDoubleInput(String prompt) {
         System.out.print(prompt);
         while (!scanner.hasNextDouble()) {
@@ -832,6 +898,10 @@ public class Main {
         return value;
     }
 
+    /** 
+     * @param prompt
+     * @return String
+     */
     private static String getStringInput(String prompt) {
         System.out.print(prompt);
         return scanner.nextLine();

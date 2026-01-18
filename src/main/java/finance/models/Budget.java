@@ -15,6 +15,9 @@ public class Budget {
         this.category = category;
     }
 
+    /** 
+     * @return double
+     */
     public double checkStatus() {
         return limit - currentUsage;
     }
@@ -23,34 +26,58 @@ public class Budget {
         this.currentUsage = 0.0;
     }
 
+    /** 
+     * @param amount
+     */
     public void addExpense(double amount) {
         this.currentUsage += amount;
     }
 
+    /** 
+     * @return int
+     */
     public int getId() {
         return id;
     }
 
+    /** 
+     * @return double
+     */
     public double getLimit() {
         return limit;
     }
 
+    /** 
+     * @param limit
+     */
     public void setLimit(double limit) {
         this.limit = limit;
     }
 
+    /** 
+     * @return double
+     */
     public double getCurrentUsage() {
         return currentUsage;
     }
 
+    /** 
+     * @return TransactionCategory
+     */
     public TransactionCategory getCategory() {
         return category;
     }
 
+    /** 
+     * @param category
+     */
     public void setCategory(TransactionCategory category) {
         this.category = category;
     }
 
+    /** 
+     * @return double
+     */
     public double getPercentageUsed() {
         if (limit == 0) return 0;
         return (currentUsage / limit) * 100;

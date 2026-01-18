@@ -30,6 +30,13 @@ public class FinancialSystem {
         this.nextSavingsGoalId = 1;
     }
 
+    /** 
+     * @param name
+     * @param balance
+     * @param type
+     * @return Account
+     * @throws FinanceException
+     */
     public Account addAccount(String name, double balance, AccountType type) throws FinanceException {
         if (name == null || name.trim().isEmpty()) {
             throw new FinanceException("Account name cannot be empty");
@@ -39,6 +46,10 @@ public class FinancialSystem {
         return account;
     }
 
+    /** 
+     * @param accountId
+     * @throws FinanceException
+     */
     public void removeAccount(int accountId) throws FinanceException {
         Account account = findAccountById(accountId);
         if (account == null) {
@@ -47,6 +58,12 @@ public class FinancialSystem {
         accounts.remove(account);
     }
 
+    /** 
+     * @param accountId
+     * @param name
+     * @param type
+     * @throws FinanceException
+     */
     public void updateAccount(int accountId, String name, AccountType type) throws FinanceException {
         Account account = findAccountById(accountId);
         if (account == null) {
@@ -60,6 +77,11 @@ public class FinancialSystem {
         }
     }
 
+    /** 
+     * @param accountId
+     * @param transaction
+     * @throws FinanceException
+     */
     public void addTransaction(int accountId, Transaction transaction) throws FinanceException {
         Account account = findAccountById(accountId);
         if (account == null) {
@@ -76,11 +98,24 @@ public class FinancialSystem {
         }
     }
 
+    /** 
+     * @param amount
+     * @param description
+     * @param date
+     * @param category
+     * @param type
+     * @return Transaction
+     */
     public Transaction createTransaction(double amount, String description, String date,
                                         TransactionCategory category, TransactionType type) {
         return new Transaction(nextTransactionId++, amount, description, date, category, type);
     }
 
+    /** 
+     * @param accountId
+     * @param transactionId
+     * @throws FinanceException
+     */
     public void removeTransaction(int accountId, int transactionId) throws FinanceException {
         Account account = findAccountById(accountId);
         if (account == null) {
@@ -109,6 +144,13 @@ public class FinancialSystem {
         account.removeTransaction(transaction);
     }
 
+    /** 
+     * @param accountId
+     * @param transactionId
+     * @param amount
+     * @param description
+     * @throws FinanceException
+     */
     public void updateTransaction(int accountId, int transactionId, double amount, String description) throws FinanceException {
         Account account = findAccountById(accountId);
         if (account == null) {
@@ -143,6 +185,12 @@ public class FinancialSystem {
         }
     }
 
+    /** 
+     * @param limit
+     * @param category
+     * @return Budget
+     * @throws FinanceException
+     */
     public Budget createBudget(double limit, TransactionCategory category) throws FinanceException {
         if (limit <= 0) {
             throw new FinanceException("Budget limit must be positive");
@@ -152,6 +200,10 @@ public class FinancialSystem {
         return budget;
     }
 
+    /** 
+     * @param budgetId
+     * @throws FinanceException
+     */
     public void removeBudget(int budgetId) throws FinanceException {
         Budget budget = findBudgetById(budgetId);
         if (budget == null) {
@@ -160,6 +212,11 @@ public class FinancialSystem {
         budgets.remove(budget);
     }
 
+    /** 
+     * @param budgetId
+     * @param limit
+     * @throws FinanceException
+     */
     public void updateBudget(int budgetId, double limit) throws FinanceException {
         Budget budget = findBudgetById(budgetId);
         if (budget == null) {
@@ -171,6 +228,12 @@ public class FinancialSystem {
         budget.setLimit(limit);
     }
 
+    /** 
+     * @param name
+     * @param targetAmount
+     * @return SavingsGoal
+     * @throws FinanceException
+     */
     public SavingsGoal createSavingsGoal(String name, double targetAmount) throws FinanceException {
         if (name == null || name.trim().isEmpty()) {
             throw new FinanceException("Savings goal name cannot be empty");
@@ -183,6 +246,10 @@ public class FinancialSystem {
         return goal;
     }
 
+    /** 
+     * @param goalId
+     * @throws FinanceException
+     */
     public void removeSavingsGoal(int goalId) throws FinanceException {
         SavingsGoal goal = findSavingsGoalById(goalId);
         if (goal == null) {
@@ -191,6 +258,12 @@ public class FinancialSystem {
         savingsGoals.remove(goal);
     }
 
+    /** 
+     * @param goalId
+     * @param name
+     * @param targetAmount
+     * @throws FinanceException
+     */
     public void updateSavingsGoal(int goalId, String name, double targetAmount) throws FinanceException {
         SavingsGoal goal = findSavingsGoalById(goalId);
         if (goal == null) {
@@ -204,6 +277,11 @@ public class FinancialSystem {
         }
     }
 
+    /** 
+     * @param goalId
+     * @param amount
+     * @throws FinanceException
+     */
     public void depositToSavingsGoal(int goalId, double amount) throws FinanceException {
         SavingsGoal goal = findSavingsGoalById(goalId);
         if (goal == null) {
@@ -212,10 +290,20 @@ public class FinancialSystem {
         goal.deposit(amount);
     }
 
+    /** 
+     * @param report
+     * @return String
+     */
     public String generateReport(Report report) {
         return report.generateContent();
     }
 
+    /** 
+     * @param category
+     * @param type
+     * @param datePrefix
+     * @return List<Transaction>
+     */
     public List<Transaction> filterTransactions(TransactionCategory category, TransactionType type, String datePrefix) {
         List<Transaction> allTransactions = new ArrayList<>();
         for (Account account : accounts) {
@@ -235,6 +323,9 @@ public class FinancialSystem {
         dataManager.saveData(data);
     }
 
+    /** 
+     * @param transaction
+     */
     private void updateBudgetUsage(Transaction transaction) {
         if (transaction.getType() == TransactionType.EXPENSE) {
             Budget budget = findBudgetByCategory(transaction.getCategory());
@@ -244,6 +335,10 @@ public class FinancialSystem {
         }
     }
 
+    /** 
+     * @param id
+     * @return Account
+     */
     public Account findAccountById(int id) {
         return accounts.stream()
             .filter(a -> a.getId() == id)
@@ -251,6 +346,10 @@ public class FinancialSystem {
             .orElse(null);
     }
 
+    /** 
+     * @param id
+     * @return Budget
+     */
     public Budget findBudgetById(int id) {
         return budgets.stream()
             .filter(b -> b.getId() == id)
@@ -258,6 +357,10 @@ public class FinancialSystem {
             .orElse(null);
     }
 
+    /** 
+     * @param category
+     * @return Budget
+     */
     public Budget findBudgetByCategory(TransactionCategory category) {
         return budgets.stream()
             .filter(b -> b.getCategory() == category)
@@ -265,6 +368,10 @@ public class FinancialSystem {
             .orElse(null);
     }
 
+    /** 
+     * @param id
+     * @return SavingsGoal
+     */
     public SavingsGoal findSavingsGoalById(int id) {
         return savingsGoals.stream()
             .filter(g -> g.getId() == id)
@@ -272,6 +379,11 @@ public class FinancialSystem {
             .orElse(null);
     }
 
+    /** 
+     * @param account
+     * @param transactionId
+     * @return Transaction
+     */
     private Transaction findTransactionInAccount(Account account, int transactionId) {
         return account.getTransactions().stream()
             .filter(t -> t.getId() == transactionId)
@@ -279,18 +391,30 @@ public class FinancialSystem {
             .orElse(null);
     }
 
+    /** 
+     * @return List<Account>
+     */
     public List<Account> getAccounts() {
         return new ArrayList<>(accounts);
     }
 
+    /** 
+     * @return List<Budget>
+     */
     public List<Budget> getBudgets() {
         return new ArrayList<>(budgets);
     }
 
+    /** 
+     * @return List<SavingsGoal>
+     */
     public List<SavingsGoal> getSavingsGoals() {
         return new ArrayList<>(savingsGoals);
     }
 
+    /** 
+     * @return List<Transaction>
+     */
     public List<Transaction> getAllTransactions() {
         List<Transaction> allTransactions = new ArrayList<>();
         for (Account account : accounts) {

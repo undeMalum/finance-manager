@@ -11,18 +11,30 @@ public abstract class Report {
 
     public abstract String generateContent();
 
+    /** 
+     * @return String
+     */
     public String getDate() {
         return date;
     }
 
+    /** 
+     * @return String
+     */
     public String getTitle() {
         return title;
     }
 
+    /** 
+     * @param date
+     */
     protected void setDate(String date) {
         this.date = date;
     }
 
+    /** 
+     * @param title
+     */
     protected void setTitle(String title) {
         this.title = title;
     }

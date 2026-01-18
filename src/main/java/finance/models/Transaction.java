@@ -22,6 +22,11 @@ public class Transaction {
         this.type = type;
     }
 
+    /** 
+     * @param amount
+     * @param description
+     * @throws FinanceException
+     */
     public void updateTransaction(double amount, String description) throws FinanceException {
         if (amount <= 0) {
             throw new FinanceException("Transaction amount must be positive");
@@ -30,46 +35,79 @@ public class Transaction {
         this.description = description;
     }
 
+    /** 
+     * @return int
+     */
     public int getId() {
         return id;
     }
 
+    /** 
+     * @return double
+     */
     public double getAmount() {
         return amount;
     }
 
+    /** 
+     * @return String
+     */
     public String getDescription() {
         return description;
     }
 
+    /** 
+     * @return String
+     */
     public String getDate() {
         return date;
     }
 
+    /** 
+     * @return TransactionCategory
+     */
     public TransactionCategory getCategory() {
         return category;
     }
 
+    /** 
+     * @return TransactionType
+     */
     public TransactionType getType() {
         return type;
     }
 
+    /** 
+     * @param amount
+     */
     public void setAmount(double amount) {
         this.amount = amount;
     }
 
+    /** 
+     * @param description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /** 
+     * @param date
+     */
     public void setDate(String date) {
         this.date = date;
     }
 
+    /** 
+     * @param category
+     */
     public void setCategory(TransactionCategory category) {
         this.category = category;
     }
 
+    /** 
+     * @param type
+     */
     public void setType(TransactionType type) {
         this.type = type;
     }

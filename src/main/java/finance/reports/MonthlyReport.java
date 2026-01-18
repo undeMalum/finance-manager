@@ -17,6 +17,9 @@ public class MonthlyReport extends Report {
         this.system = system;
     }
 
+    /** 
+     * @return String
+     */
     @Override
     public String generateContent() {
         StringBuilder content = new StringBuilder();
@@ -65,10 +68,16 @@ public class MonthlyReport extends Report {
         return content.toString();
     }
 
+    /** 
+     * @return int
+     */
     public int getMonth() {
         return month;
     }
 
+    /** 
+     * @return int
+     */
     public int getYear() {
         return year;
     }

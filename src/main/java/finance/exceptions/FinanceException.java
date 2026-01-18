@@ -8,6 +8,9 @@ public class FinanceException extends Exception {
         this.message = msg;
     }
 
+    /** 
+     * @return String
+     */
     @Override
     public String getMessage() {
         return message;

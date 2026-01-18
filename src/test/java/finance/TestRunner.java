@@ -4,6 +4,9 @@ import finance.models.*;
 import finance.system.*;
 
 public class TestRunner {
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
         System.out.println("========================================");
         System.out.println("   FINANCIAL MANAGER - TEST SUITE");

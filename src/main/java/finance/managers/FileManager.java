@@ -12,6 +12,10 @@ public class FileManager implements IDataManager {
         this.filePath = filePath;
     }
 
+    /** 
+     * @param data
+     * @return boolean
+     */
     @Override
     public boolean saveData(List<String> data) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
@@ -25,6 +29,9 @@ public class FileManager implements IDataManager {
         }
     }
 
+    /** 
+     * @return List<String>
+     */
     @Override
     public List<String> loadData() {
         List<String> data = new ArrayList<>();
@@ -45,10 +52,16 @@ public class FileManager implements IDataManager {
         return data;
     }
 
+    /** 
+     * @return String
+     */
     public String getFilePath() {
         return filePath;
     }
 
+    /** 
+     * @param filePath
+     */
     public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
