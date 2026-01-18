@@ -1,0 +1,46 @@
+{
+  "accounts": [
+    {
+      "id": 1,
+      "name": "Checking Account",
+      "balance": 1000.0,
+      "type": "ADULT"
+    }
+  ],
+  "transactions": [
+    {
+      "id": 1,
+      "accountId": 1,
+      "amount": 1500.0,
+      "description": "Salary",
+      "date": "2026-01-01",
+      "category": "OTHER",
+      "type": "INCOME"
+    },
+    {
+      "id": 2,
+      "accountId": 1,
+      "amount": 500.0,
+      "description": "Rent Payment",
+      "date": "2026-01-05",
+      "category": "OTHER",
+      "type": "EXPENSE"
+    }
+  ],
+  "budgets": [
+    {
+      "id": 1,
+      "limit": 1000.0,
+      "currentUsage": 500.0,
+      "category": "OTHER"
+    }
+  ],
+  "savingsGoals": [
+    {
+      "id": 1,
+      "name": "Emergency Fund",
+      "targetAmount": 5000.0,
+      "currentAmount": 1000.0
+    }
+  ]
+}

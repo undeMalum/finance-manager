@@ -7,7 +7,10 @@ import finance.managers.FileManager;
 import finance.models.*;
 import finance.reports.MonthlyReport;
 import finance.system.FinancialSystem;
+import finance.utils.JsonUtil;
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -666,14 +669,103 @@ public class Main {
 
     private static void exportData() {
         System.out.println("\n--- EXPORT DATA ---");
-        system.saveSystemState();
-        System.out.println("Data exported successfully to financial_data.txt");
+        String filename = getStringInput("Enter filename (default: data/export.json): ");
+        if (filename.trim().isEmpty()) {
+            filename = "data/export.json";
+        }
+        
+        try {
+            String jsonData = JsonUtil.exportToJson(system);
+            java.nio.file.Files.writeString(java.nio.file.Path.of(filename), jsonData);
+            System.out.println("Data exported successfully to " + filename);
+        } catch (IOException e) {
+            System.out.println("Error exporting data: " + e.getMessage());
+        }
     }
 
     private static void importData() {
         System.out.println("\n--- IMPORT DATA ---");
-        System.out.println("Import functionality is available but requires specific file format.");
-        System.out.println("Current data preserved.");
+        System.out.println("Available example files:");
+        System.out.println("  - data/example_data.json (complete dataset)");
+        System.out.println("  - data/sample_minimal.json (minimal dataset)");
+        System.out.println();
+        
+        String filename = getStringInput("Enter filename to import: ");
+        if (filename.trim().isEmpty()) {
+            System.out.println("Import cancelled.");
+            return;
+        }
+        
+        try {
+            Map<String, Object> data = JsonUtil.importFromJson(filename);
+            loadDataFromMap(data);
+            System.out.println("Data imported successfully from " + filename);
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error importing data: " + e.getMessage());
+        }
+    }
+    
+    private static void loadDataFromMap(Map<String, Object> data) throws FinanceException {
+        List<Map<String, String>> accounts = (List<Map<String, String>>) data.get("accounts");
+        List<Map<String, String>> transactions = (List<Map<String, String>>) data.get("transactions");
+        List<Map<String, String>> budgets = (List<Map<String, String>>) data.get("budgets");
+        List<Map<String, String>> savingsGoals = (List<Map<String, String>>) data.get("savingsGoals");
+        
+        if (accounts != null) {
+            for (Map<String, String> accData : accounts) {
+                int id = Integer.parseInt(accData.get("id"));
+                String name = accData.get("name");
+                double balance = Double.parseDouble(accData.get("balance"));
+                AccountType type = JsonUtil.parseAccountType(accData.get("type"));
+                system.addAccount(name, balance, type);
+            }
+        }
+        
+        if (transactions != null) {
+            for (Map<String, String> transData : transactions) {
+                int accountId = 1;
+                double amount = Double.parseDouble(transData.get("amount"));
+                String description = transData.get("description");
+                String date = transData.get("date");
+                TransactionCategory category = JsonUtil.parseTransactionCategory(transData.get("category"));
+                TransactionType type = JsonUtil.parseTransactionType(transData.get("type"));
+                
+                Transaction t = system.createTransaction(amount, description, date, category, type);
+                if (system.getAccounts().size() > 0) {
+                    system.addTransaction(system.getAccounts().get(0).getId(), t);
+                }
+            }
+        }
+        
+        if (budgets != null) {
+            for (Map<String, String> budgetData : budgets) {
+                double limit = Double.parseDouble(budgetData.get("limit"));
+                TransactionCategory category = JsonUtil.parseTransactionCategory(budgetData.get("category"));
+                Budget budget = system.createBudget(limit, category);
+                
+                if (budgetData.containsKey("currentUsage")) {
+                    double usage = Double.parseDouble(budgetData.get("currentUsage"));
+                    budget.addExpense(usage);
+                }
+            }
+        }
+        
+        if (savingsGoals != null) {
+            for (Map<String, String> goalData : savingsGoals) {
+                String name = goalData.get("name");
+                double targetAmount = Double.parseDouble(goalData.get("targetAmount"));
+                SavingsGoal goal = system.createSavingsGoal(name, targetAmount);
+                
+                if (goalData.containsKey("currentAmount")) {
+                    double currentAmount = Double.parseDouble(goalData.get("currentAmount"));
+                    if (currentAmount > 0) {
+                        system.depositToSavingsGoal(goal.getId(), currentAmount);
+                    }
+                }
+            }
+        }
     }
 
     private static void loadExampleData() {
