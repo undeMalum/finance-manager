@@ -10,21 +10,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FinancialSystem {
-    private List<Account> accounts;
+    private Account account;
     private List<Budget> budgets;
     private List<SavingsGoal> savingsGoals;
     private IDataManager dataManager;
-    private int nextAccountId;
     private int nextTransactionId;
     private int nextBudgetId;
     private int nextSavingsGoalId;
 
     public FinancialSystem(IDataManager dataManager) {
-        this.accounts = new ArrayList<>();
+        this.account = null;
         this.budgets = new ArrayList<>();
         this.savingsGoals = new ArrayList<>();
         this.dataManager = dataManager;
-        this.nextAccountId = 1;
         this.nextTransactionId = 1;
         this.nextBudgetId = 1;
         this.nextSavingsGoalId = 1;
@@ -34,40 +32,26 @@ public class FinancialSystem {
      * @param name
      * @param balance
      * @param type
-     * @return Account
      * @throws FinanceException
      */
-    public Account addAccount(String name, double balance, AccountType type) throws FinanceException {
+    public void createAccount(String name, double balance, AccountType type) throws FinanceException {
         if (name == null || name.trim().isEmpty()) {
             throw new FinanceException("Account name cannot be empty");
         }
-        Account account = new Account(nextAccountId++, name, balance, type);
-        accounts.add(account);
-        return account;
-    }
-
-    /** 
-     * @param accountId
-     * @throws FinanceException
-     */
-    public void removeAccount(int accountId) throws FinanceException {
-        Account account = findAccountById(accountId);
-        if (account == null) {
-            throw new FinanceException("Account not found");
+        if (account != null) {
+            throw new FinanceException("Account already exists. Only one account is allowed.");
         }
-        accounts.remove(account);
+        this.account = new Account(1, name, balance, type);
     }
 
     /** 
-     * @param accountId
      * @param name
      * @param type
      * @throws FinanceException
      */
-    public void updateAccount(int accountId, String name, AccountType type) throws FinanceException {
-        Account account = findAccountById(accountId);
+    public void updateAccount(String name, AccountType type) throws FinanceException {
         if (account == null) {
-            throw new FinanceException("Account not found");
+            throw new FinanceException("No account exists");
         }
         if (name != null && !name.trim().isEmpty()) {
             account.setName(name);
@@ -78,14 +62,27 @@ public class FinancialSystem {
     }
 
     /** 
+     * @return Account
+     */
+    public Account getAccount() {
+        return account;
+    }
+
+    /** 
+     * @return boolean
+     */
+    public boolean hasAccount() {
+        return account != null;
+    }
+
+    /** 
      * @param accountId
      * @param transaction
      * @throws FinanceException
      */
-    public void addTransaction(int accountId, Transaction transaction) throws FinanceException {
-        Account account = findAccountById(accountId);
+    public void addTransaction(Transaction transaction) throws FinanceException {
         if (account == null) {
-            throw new FinanceException("Account not found");
+            throw new FinanceException("No account exists");
         }
         
         account.addTransaction(transaction);
@@ -112,14 +109,12 @@ public class FinancialSystem {
     }
 
     /** 
-     * @param accountId
      * @param transactionId
      * @throws FinanceException
      */
-    public void removeTransaction(int accountId, int transactionId) throws FinanceException {
-        Account account = findAccountById(accountId);
+    public void removeTransaction(int transactionId) throws FinanceException {
         if (account == null) {
-            throw new FinanceException("Account not found");
+            throw new FinanceException("No account exists");
         }
         
         Transaction transaction = findTransactionInAccount(account, transactionId);
@@ -145,16 +140,14 @@ public class FinancialSystem {
     }
 
     /** 
-     * @param accountId
      * @param transactionId
      * @param amount
      * @param description
      * @throws FinanceException
      */
-    public void updateTransaction(int accountId, int transactionId, double amount, String description) throws FinanceException {
-        Account account = findAccountById(accountId);
+    public void updateTransaction(int transactionId, double amount, String description) throws FinanceException {
         if (account == null) {
-            throw new FinanceException("Account not found");
+            throw new FinanceException("No account exists");
         }
         
         Transaction transaction = findTransactionInAccount(account, transactionId);
@@ -305,10 +298,11 @@ public class FinancialSystem {
      * @return List<Transaction>
      */
     public List<Transaction> filterTransactions(TransactionCategory category, TransactionType type, String datePrefix) {
-        List<Transaction> allTransactions = new ArrayList<>();
-        for (Account account : accounts) {
-            allTransactions.addAll(account.getTransactions());
+        if (account == null) {
+            return new ArrayList<>();
         }
+        
+        List<Transaction> allTransactions = account.getTransactions();
 
         return allTransactions.stream()
             .filter(t -> category == null || t.getCategory() == category)
@@ -333,17 +327,6 @@ public class FinancialSystem {
                 budget.addExpense(transaction.getAmount());
             }
         }
-    }
-
-    /** 
-     * @param id
-     * @return Account
-     */
-    public Account findAccountById(int id) {
-        return accounts.stream()
-            .filter(a -> a.getId() == id)
-            .findFirst()
-            .orElse(null);
     }
 
     /** 
@@ -392,13 +375,6 @@ public class FinancialSystem {
     }
 
     /** 
-     * @return List<Account>
-     */
-    public List<Account> getAccounts() {
-        return new ArrayList<>(accounts);
-    }
-
-    /** 
      * @return List<Budget>
      */
     public List<Budget> getBudgets() {
@@ -416,10 +392,9 @@ public class FinancialSystem {
      * @return List<Transaction>
      */
     public List<Transaction> getAllTransactions() {
-        List<Transaction> allTransactions = new ArrayList<>();
-        for (Account account : accounts) {
-            allTransactions.addAll(account.getTransactions());
+        if (account == null) {
+            return new ArrayList<>();
         }
-        return allTransactions;
+        return account.getTransactions();
     }
 }

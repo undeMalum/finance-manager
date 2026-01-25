@@ -40,10 +40,10 @@ This application helps users manage their financial activities including account
 
 <!-- TOC --><a name="account-management"></a>
 ### Account Management
-- Create an account (Adult, Teenager, Child)
-- Edit account details
-- Delete account
-- View account balance
+- Create a single account (Adult, Teenager, Child)
+- Edit account details (name and type)
+- View account balance and transaction count
+- **Note:** Application supports one account per instance
 
 <!-- TOC --><a name="transaction-management"></a>
 ### Transaction Management
@@ -112,15 +112,15 @@ java -cp bin finance.TestRunner
 ### Starting the Application
 
 When you start the application, example data is automatically loaded to demonstrate functionality:
-- 3 pre-configured accounts (Main Account, Savings Account, Teen Account)
-- Sample transactions (salary, groceries, gas, entertainment)
+- 1 pre-configured account (Main Account - ADULT type with $5000 balance)
+- Sample transactions (salary, groceries, gas, entertainment, freelance work)
 - Example budgets for Food, Transportation, and Entertainment
 - Demo savings goals (Vacation Fund, Emergency Fund)
 
 <!-- TOC --><a name="main-menu-options"></a>
 ### Main Menu Options
 
-1. **Manage Accounts** - Create, view, edit, or delete accounts
+1. **View/Manage Account** - Create account, view details, or edit account information
 2. **Manage Transactions** - Add, view, filter, edit, or delete transactions
 3. **Manage Budgets** - Create and monitor spending budgets
 4. **Manage Savings Goals** - Track progress toward financial goals
@@ -132,7 +132,7 @@ When you start the application, example data is automatically loaded to demonstr
 <!-- TOC --><a name="example-workflow"></a>
 ### Example Workflow
 
-1. View existing accounts (Option 1 → 2)
+1. View your account (Option 1 → 1)
 2. Add a new transaction (Option 2 → 1)
 3. Check budget status (Option 3 → 3)
 4. View savings progress (Option 4 → 3)

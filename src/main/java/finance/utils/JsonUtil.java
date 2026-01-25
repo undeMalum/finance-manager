@@ -16,14 +16,14 @@ public class JsonUtil {
         StringBuilder json = new StringBuilder();
         json.append("{\n");
         
-        json.append("  \"accounts\": [\n");
-        List<Account> accounts = system.getAccounts();
-        for (int i = 0; i < accounts.size(); i++) {
-            json.append(accountToJson(accounts.get(i), 4));
-            if (i < accounts.size() - 1) json.append(",");
-            json.append("\n");
+        json.append("  \"account\": ");
+        Account account = system.getAccount();
+        if (account != null) {
+            json.append(accountToJson(account, 2));
+        } else {
+            json.append("null");
         }
-        json.append("  ],\n");
+        json.append(",\n");
         
         json.append("  \"transactions\": [\n");
         List<Transaction> transactions = system.getAllTransactions();

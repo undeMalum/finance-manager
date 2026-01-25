@@ -1,16 +1,13 @@
 {
-  "accounts": [
-    {
-      "id": 1,
-      "name": "Checking Account",
-      "balance": 1000.0,
-      "type": "ADULT"
-    }
-  ],
+  "account": {
+    "id": 1,
+    "name": "Checking Account",
+    "balance": 1000.0,
+    "type": "ADULT"
+  },
   "transactions": [
     {
       "id": 1,
-      "accountId": 1,
       "amount": 1500.0,
       "description": "Salary",
       "date": "2026-01-01",
@@ -19,8 +16,6 @@
     },
     {
       "id": 2,
-      "accountId": 1,
-      "amount": 500.0,
       "description": "Rent Payment",
       "date": "2026-01-05",
       "category": "OTHER",

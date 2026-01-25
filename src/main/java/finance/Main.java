@@ -78,7 +78,7 @@ public class Main {
         System.out.println("\n========================================");
         System.out.println("           MAIN MENU");
         System.out.println("========================================");
-        System.out.println("1. Manage Accounts");
+        System.out.println("1. View/Manage Account");
         System.out.println("2. Manage Transactions");
         System.out.println("3. Manage Budgets");
         System.out.println("4. Manage Savings Goals");
@@ -93,27 +93,50 @@ public class Main {
      * @throws FinanceException
      */
     private static void manageAccounts() throws FinanceException {
+        if (!system.hasAccount()) {
+            System.out.println("\n--- CREATE YOUR ACCOUNT ---");
+            String name = getStringInput("Enter account name: ");
+            double balance = getDoubleInput("Enter initial balance: ");
+
+            System.out.println("Select account type:");
+            System.out.println("1. ADULT");
+            System.out.println("2. TEENAGER");
+            System.out.println("3. CHILD");
+            int typeChoice = getIntInput("Enter choice: ");
+
+            AccountType type;
+            switch (typeChoice) {
+                case 1:
+                    type = AccountType.ADULT;
+                    break;
+                case 2:
+                    type = AccountType.TEENAGER;
+                    break;
+                case 3:
+                    type = AccountType.CHILD;
+                    break;
+                default:
+                    type = AccountType.ADULT;
+            }
+
+            system.createAccount(name, balance, type);
+            System.out.println("Account created successfully!");
+            return;
+        }
+        
         System.out.println("\n--- ACCOUNT MANAGEMENT ---");
-        System.out.println("1. Add Account");
-        System.out.println("2. View All Accounts");
-        System.out.println("3. Edit Account");
-        System.out.println("4. Delete Account");
+        System.out.println("1. View Account");
+        System.out.println("2. Edit Account");
         System.out.println("0. Back to Main Menu");
 
         int choice = getIntInput("Enter your choice: ");
 
         switch (choice) {
             case 1:
-                addAccount();
+                viewAccount();
                 break;
             case 2:
-                viewAllAccounts();
-                break;
-            case 3:
                 editAccount();
-                break;
-            case 4:
-                deleteAccount();
                 break;
             case 0:
                 break;
@@ -122,15 +145,43 @@ public class Main {
         }
     }
 
+    private static void viewAccount() {
+        System.out.println("\n--- YOUR ACCOUNT ---");
+        Account account = system.getAccount();
+        if (account == null) {
+            System.out.println("No account exists.");
+            return;
+        }
+        
+        System.out.println("Name: " + account.getName());
+        System.out.println("Balance: $" + String.format("%.2f", account.getBalance()));
+        System.out.println("Type: " + account.getType());
+        System.out.println("Transactions: " + account.getTransactions().size());
+    }
+
     /** 
      * @throws FinanceException
      */
-    private static void addAccount() throws FinanceException {
-        System.out.println("\n--- ADD ACCOUNT ---");
-        String name = getStringInput("Enter account name: ");
-        double balance = getDoubleInput("Enter initial balance: ");
+    private static void editAccount() throws FinanceException {
+        Account account = system.getAccount();
+        if (account == null) {
+            System.out.println("No account exists.");
+            return;
+        }
 
-        System.out.println("Select account type:");
+        System.out.println("\n--- EDIT ACCOUNT ---");
+        System.out.println("Current name: " + account.getName());
+        String name = getStringInput("Enter new name (or press Enter to keep current): ");
+        if (name.isEmpty()) {
+            name = account.getName();
+        }
+
+        System.out.println("Current balance: $" + String.format("%.2f", account.getBalance()));
+        String balanceStr = getStringInput("Enter new balance (or press Enter to keep current): ");
+        double balance = balanceStr.isEmpty() ? account.getBalance() : Double.parseDouble(balanceStr);
+
+        System.out.println("Current type: " + account.getType());
+        System.out.println("Select new account type (or 0 to keep current):");
         System.out.println("1. ADULT");
         System.out.println("2. TEENAGER");
         System.out.println("3. CHILD");
@@ -148,69 +199,12 @@ public class Main {
                 type = AccountType.CHILD;
                 break;
             default:
-                type = AccountType.ADULT;
+                type = account.getType();
         }
 
-        Account account = system.addAccount(name, balance, type);
-        System.out.println("Account created successfully! ID: " + account.getId());
-    }
-
-    private static void viewAllAccounts() {
-        System.out.println("\n--- ALL ACCOUNTS ---");
-        List<Account> accounts = system.getAccounts();
-
-        if (accounts.isEmpty()) {
-            System.out.println("No accounts found.");
-            return;
-        }
-
-        for (Account account : accounts) {
-            System.out.println("ID: " + account.getId() + 
-                             " | Name: " + account.getName() + 
-                             " | Balance: $" + String.format("%.2f", account.getBalance()) + 
-                             " | Type: " + account.getType());
-        }
-    }
-
-    /** 
-     * @throws FinanceException
-     */
-    private static void editAccount() throws FinanceException {
-        viewAllAccounts();
-        int id = getIntInput("Enter account ID to edit: ");
-        String name = getStringInput("Enter new name (or press Enter to skip): ");
-        
-        System.out.println("Select new account type (or 0 to skip):");
-        System.out.println("1. ADULT");
-        System.out.println("2. TEENAGER");
-        System.out.println("3. CHILD");
-        int typeChoice = getIntInput("Enter choice: ");
-
-        AccountType type = null;
-        switch (typeChoice) {
-            case 1:
-                type = AccountType.ADULT;
-                break;
-            case 2:
-                type = AccountType.TEENAGER;
-                break;
-            case 3:
-                type = AccountType.CHILD;
-                break;
-        }
-
-        system.updateAccount(id, name, type);
+        system.updateAccount(name, type);
+        // Note: Balance is managed through transactions, not direct updates
         System.out.println("Account updated successfully!");
-    }
-
-    /** 
-     * @throws FinanceException
-     */
-    private static void deleteAccount() throws FinanceException {
-        viewAllAccounts();
-        int id = getIntInput("Enter account ID to delete: ");
-        system.removeAccount(id);
-        System.out.println("Account deleted successfully!");
     }
 
     /** 
@@ -254,8 +248,10 @@ public class Main {
      * @throws FinanceException
      */
     private static void addTransaction() throws FinanceException {
-        viewAllAccounts();
-        int accountId = getIntInput("Enter account ID: ");
+        if (!system.hasAccount()) {
+            System.out.println("Please create an account first.");
+            return;
+        }
 
         double amount = getDoubleInput("Enter amount: ");
         String description = getStringInput("Enter description: ");
@@ -291,7 +287,7 @@ public class Main {
         TransactionType type = (typeChoice == 1) ? TransactionType.INCOME : TransactionType.EXPENSE;
 
         Transaction transaction = system.createTransaction(amount, description, date, category, type);
-        system.addTransaction(accountId, transaction);
+        system.addTransaction(transaction);
         System.out.println("Transaction added successfully! ID: " + transaction.getId());
     }
 
@@ -384,16 +380,14 @@ public class Main {
      * @throws FinanceException
      */
     private static void editTransaction() throws FinanceException {
-        viewAllAccounts();
-        int accountId = getIntInput("Enter account ID: ");
-        
-        Account account = system.findAccountById(accountId);
-        if (account == null) {
-            throw new FinanceException("Account not found");
+        if (!system.hasAccount()) {
+            System.out.println("No account exists.");
+            return;
         }
-
+        
+        Account account = system.getAccount();
         List<Transaction> transactions = account.getTransactions();
-        System.out.println("\nTransactions for account " + account.getName() + ":");
+        System.out.println("\nTransactions for " + account.getName() + ":");
         for (Transaction t : transactions) {
             System.out.println("ID: " + t.getId() + " | " + t.getDescription() + " | $" + t.getAmount());
         }
@@ -402,7 +396,7 @@ public class Main {
         double amount = getDoubleInput("Enter new amount: ");
         String description = getStringInput("Enter new description: ");
 
-        system.updateTransaction(accountId, transactionId, amount, description);
+        system.updateTransaction(transactionId, amount, description);
         System.out.println("Transaction updated successfully!");
     }
 
@@ -410,22 +404,20 @@ public class Main {
      * @throws FinanceException
      */
     private static void deleteTransaction() throws FinanceException {
-        viewAllAccounts();
-        int accountId = getIntInput("Enter account ID: ");
-        
-        Account account = system.findAccountById(accountId);
-        if (account == null) {
-            throw new FinanceException("Account not found");
+        if (!system.hasAccount()) {
+            System.out.println("No account exists.");
+            return;
         }
-
+        
+        Account account = system.getAccount();
         List<Transaction> transactions = account.getTransactions();
-        System.out.println("\nTransactions for account " + account.getName() + ":");
+        System.out.println("\nTransactions for " + account.getName() + ":");
         for (Transaction t : transactions) {
             System.out.println("ID: " + t.getId() + " | " + t.getDescription() + " | $" + t.getAmount());
         }
 
         int transactionId = getIntInput("Enter transaction ID to delete: ");
-        system.removeTransaction(accountId, transactionId);
+        system.removeTransaction(transactionId);
         System.out.println("Transaction deleted successfully!");
     }
 
@@ -766,24 +758,20 @@ public class Main {
      * @throws FinanceException
      */
     private static void loadDataFromMap(Map<String, Object> data) throws FinanceException {
-        List<Map<String, String>> accounts = (List<Map<String, String>>) data.get("accounts");
+        Map<String, String> accountData = (Map<String, String>) data.get("account");
         List<Map<String, String>> transactions = (List<Map<String, String>>) data.get("transactions");
         List<Map<String, String>> budgets = (List<Map<String, String>>) data.get("budgets");
         List<Map<String, String>> savingsGoals = (List<Map<String, String>>) data.get("savingsGoals");
         
-        if (accounts != null) {
-            for (Map<String, String> accData : accounts) {
-                int id = Integer.parseInt(accData.get("id"));
-                String name = accData.get("name");
-                double balance = Double.parseDouble(accData.get("balance"));
-                AccountType type = JsonUtil.parseAccountType(accData.get("type"));
-                system.addAccount(name, balance, type);
-            }
+        if (accountData != null) {
+            String name = accountData.get("name");
+            double balance = Double.parseDouble(accountData.get("balance"));
+            AccountType type = JsonUtil.parseAccountType(accountData.get("type"));
+            system.createAccount(name, balance, type);
         }
         
         if (transactions != null) {
             for (Map<String, String> transData : transactions) {
-                int accountId = 1;
                 double amount = Double.parseDouble(transData.get("amount"));
                 String description = transData.get("description");
                 String date = transData.get("date");
@@ -791,9 +779,7 @@ public class Main {
                 TransactionType type = JsonUtil.parseTransactionType(transData.get("type"));
                 
                 Transaction t = system.createTransaction(amount, description, date, category, type);
-                if (system.getAccounts().size() > 0) {
-                    system.addTransaction(system.getAccounts().get(0).getId(), t);
-                }
+                system.addTransaction(t);
             }
         }
         
@@ -828,29 +814,27 @@ public class Main {
 
     private static void loadExampleData() {
         try {
-            Account mainAccount = system.addAccount("Main Account", 5000.0, AccountType.ADULT);
-            Account savingsAccount = system.addAccount("Savings Account", 10000.0, AccountType.ADULT);
-            Account teenAccount = system.addAccount("Teen Account", 500.0, AccountType.TEENAGER);
+            system.createAccount("Main Account", 5000.0, AccountType.ADULT);
 
             Transaction t1 = system.createTransaction(3000.0, "Monthly Salary", "2026-01-01", 
                                                      TransactionCategory.OTHER, TransactionType.INCOME);
-            system.addTransaction(mainAccount.getId(), t1);
+            system.addTransaction(t1);
 
             Transaction t2 = system.createTransaction(250.0, "Grocery Shopping", "2026-01-05", 
                                                      TransactionCategory.FOOD, TransactionType.EXPENSE);
-            system.addTransaction(mainAccount.getId(), t2);
+            system.addTransaction(t2);
 
             Transaction t3 = system.createTransaction(50.0, "Gas", "2026-01-07", 
                                                      TransactionCategory.TRANSPORTATION, TransactionType.EXPENSE);
-            system.addTransaction(mainAccount.getId(), t3);
+            system.addTransaction(t3);
 
             Transaction t4 = system.createTransaction(80.0, "Cinema and Dinner", "2026-01-10", 
                                                      TransactionCategory.ENTERTAINMENT, TransactionType.EXPENSE);
-            system.addTransaction(mainAccount.getId(), t4);
+            system.addTransaction(t4);
 
-            Transaction t5 = system.createTransaction(100.0, "Allowance", "2026-01-15", 
+            Transaction t5 = system.createTransaction(100.0, "Freelance Work", "2026-01-15", 
                                                      TransactionCategory.OTHER, TransactionType.INCOME);
-            system.addTransaction(teenAccount.getId(), t5);
+            system.addTransaction(t5);
 
             system.createBudget(500.0, TransactionCategory.FOOD);
             system.createBudget(200.0, TransactionCategory.TRANSPORTATION);
