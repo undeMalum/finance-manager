@@ -47,7 +47,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_account_8java.html",
-"classfinance_1_1models_1_1_transaction.html#a544464bfe4571a2ee73f531ded38d576"
+"classfinance_1_1models_1_1_transaction.html#a73a4ccc05b2fcf24478402e9ce452ba7"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

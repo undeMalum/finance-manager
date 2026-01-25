@@ -3,7 +3,7 @@ var searchData=
   ['generatecontent_0',['generateContent',['../classfinance_1_1reports_1_1_monthly_report.html#a58395feaad94e5faca04d85b74756ca5',1,'finance.reports.MonthlyReport.generateContent()'],['../classfinance_1_1reports_1_1_report.html#ac42f7f231618464c9b3d869d2a1e6b6c',1,'finance.reports.Report.generateContent()']]],
   ['generatemonthlyreport_1',['generateMonthlyReport',['../classfinance_1_1_main.html#ab7e481a174c95b3d3ecd57c96fff9064',1,'finance::Main']]],
   ['generatereport_2',['generateReport',['../classfinance_1_1system_1_1_financial_system.html#a7791b54eae245fdc5e39d2cb7b44080e',1,'finance::system::FinancialSystem']]],
-  ['getaccounts_3',['getAccounts',['../classfinance_1_1system_1_1_financial_system.html#a5030b85124e6a4154893a7d3afcab146',1,'finance::system::FinancialSystem']]],
+  ['getaccount_3',['getAccount',['../classfinance_1_1system_1_1_financial_system.html#a4f738db64b6d5278799190bb710e514e',1,'finance::system::FinancialSystem']]],
   ['getalltransactions_4',['getAllTransactions',['../classfinance_1_1system_1_1_financial_system.html#aa9c4b4dbe4d2cec28fa23e191ebacbbc',1,'finance::system::FinancialSystem']]],
   ['getamount_5',['getAmount',['../classfinance_1_1models_1_1_transaction.html#ad4199b067322e8b2eb5d259dec8ba2b1',1,'finance::models::Transaction']]],
   ['getbalance_6',['getBalance',['../classfinance_1_1models_1_1_account.html#aceff6cd2f33efc9548e6bd4f6677a86f',1,'finance::models::Account']]],

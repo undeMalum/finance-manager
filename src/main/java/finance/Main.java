@@ -20,6 +20,9 @@ public class Main {
     /** 
      * @param args
      */
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
         AppConfiguration.loadConfiguration();
         FileManager fileManager = new FileManager("financial_data.txt");
@@ -89,6 +92,9 @@ public class Main {
         System.out.println("========================================");
     }
 
+    /** 
+     * @throws FinanceException
+     */
     /** 
      * @throws FinanceException
      */
@@ -162,6 +168,9 @@ public class Main {
     /** 
      * @throws FinanceException
      */
+    /** 
+     * @throws FinanceException
+     */
     private static void editAccount() throws FinanceException {
         Account account = system.getAccount();
         if (account == null) {
@@ -210,6 +219,9 @@ public class Main {
     /** 
      * @throws FinanceException
      */
+    /** 
+     * @throws FinanceException
+     */
     private static void manageTransactions() throws FinanceException {
         System.out.println("\n--- TRANSACTION MANAGEMENT ---");
         System.out.println("1. Add Transaction");
@@ -244,6 +256,9 @@ public class Main {
         }
     }
 
+    /** 
+     * @throws FinanceException
+     */
     /** 
      * @throws FinanceException
      */
@@ -379,6 +394,9 @@ public class Main {
     /** 
      * @throws FinanceException
      */
+    /** 
+     * @throws FinanceException
+     */
     private static void editTransaction() throws FinanceException {
         if (!system.hasAccount()) {
             System.out.println("No account exists.");
@@ -403,6 +421,9 @@ public class Main {
     /** 
      * @throws FinanceException
      */
+    /** 
+     * @throws FinanceException
+     */
     private static void deleteTransaction() throws FinanceException {
         if (!system.hasAccount()) {
             System.out.println("No account exists.");
@@ -421,6 +442,9 @@ public class Main {
         System.out.println("Transaction deleted successfully!");
     }
 
+    /** 
+     * @throws FinanceException
+     */
     /** 
      * @throws FinanceException
      */
@@ -458,6 +482,9 @@ public class Main {
         }
     }
 
+    /** 
+     * @throws FinanceException
+     */
     /** 
      * @throws FinanceException
      */
@@ -543,6 +570,9 @@ public class Main {
     /** 
      * @throws FinanceException
      */
+    /** 
+     * @throws FinanceException
+     */
     private static void updateBudget() throws FinanceException {
         viewAllBudgets();
         int id = getIntInput("Enter budget ID to update: ");
@@ -554,6 +584,9 @@ public class Main {
     /** 
      * @throws FinanceException
      */
+    /** 
+     * @throws FinanceException
+     */
     private static void deleteBudget() throws FinanceException {
         viewAllBudgets();
         int id = getIntInput("Enter budget ID to delete: ");
@@ -561,6 +594,9 @@ public class Main {
         System.out.println("Budget deleted successfully!");
     }
 
+    /** 
+     * @throws FinanceException
+     */
     /** 
      * @throws FinanceException
      */
@@ -602,6 +638,9 @@ public class Main {
         }
     }
 
+    /** 
+     * @throws FinanceException
+     */
     /** 
      * @throws FinanceException
      */
@@ -671,6 +710,9 @@ public class Main {
     /** 
      * @throws FinanceException
      */
+    /** 
+     * @throws FinanceException
+     */
     private static void depositToGoal() throws FinanceException {
         viewAllSavingsGoals();
         int id = getIntInput("Enter goal ID: ");
@@ -679,6 +721,9 @@ public class Main {
         System.out.println("Deposit successful!");
     }
 
+    /** 
+     * @throws FinanceException
+     */
     /** 
      * @throws FinanceException
      */
@@ -693,6 +738,9 @@ public class Main {
         System.out.println("Savings goal updated successfully!");
     }
 
+    /** 
+     * @throws FinanceException
+     */
     /** 
      * @throws FinanceException
      */
@@ -753,6 +801,10 @@ public class Main {
         }
     }
     
+    /** 
+     * @param data
+     * @throws FinanceException
+     */
     /** 
      * @param data
      * @throws FinanceException
@@ -856,6 +908,10 @@ public class Main {
      * @param prompt
      * @return int
      */
+    /** 
+     * @param prompt
+     * @return int
+     */
     private static int getIntInput(String prompt) {
         System.out.print(prompt);
         while (!scanner.hasNextInt()) {
@@ -871,6 +927,10 @@ public class Main {
      * @param prompt
      * @return double
      */
+    /** 
+     * @param prompt
+     * @return double
+     */
     private static double getDoubleInput(String prompt) {
         System.out.print(prompt);
         while (!scanner.hasNextDouble()) {
@@ -882,6 +942,10 @@ public class Main {
         return value;
     }
 
+    /** 
+     * @param prompt
+     * @return String
+     */
     /** 
      * @param prompt
      * @return String

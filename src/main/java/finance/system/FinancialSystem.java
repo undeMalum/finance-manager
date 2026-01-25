@@ -1,10 +1,10 @@
 package finance.system;
 
+import finance.enums.*;
+import finance.exceptions.FinanceException;
 import finance.interfaces.IDataManager;
 import finance.models.*;
 import finance.reports.Report;
-import finance.enums.*;
-import finance.exceptions.FinanceException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

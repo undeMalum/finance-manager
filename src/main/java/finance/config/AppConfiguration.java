@@ -12,10 +12,16 @@ public class AppConfiguration {
     /** 
      * @return String
      */
+    /** 
+     * @return String
+     */
     public static String getDefaultCurrency() {
         return DEFAULT_CURRENCY;
     }
 
+    /** 
+     * @return int
+     */
     /** 
      * @return int
      */
@@ -26,10 +32,16 @@ public class AppConfiguration {
     /** 
      * @param currency
      */
+    /** 
+     * @param currency
+     */
     public static void setDefaultCurrency(String currency) {
         DEFAULT_CURRENCY = currency;
     }
 
+    /** 
+     * @param maxBudgets
+     */
     /** 
      * @param maxBudgets
      */

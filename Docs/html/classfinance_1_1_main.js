@@ -1,10 +1,8 @@
 var classfinance_1_1_main =
 [
-    [ "addAccount", "classfinance_1_1_main.html#a54c696d722428c6f9a19bbc7bee10516", null ],
     [ "addTransaction", "classfinance_1_1_main.html#af38318da030a9d3729a913a3c1ccc7d3", null ],
     [ "createBudget", "classfinance_1_1_main.html#a6a380026dcaabd489128c19e0db85dc4", null ],
     [ "createSavingsGoal", "classfinance_1_1_main.html#a59a45da3530b70bb87d13871f33a0f25", null ],
-    [ "deleteAccount", "classfinance_1_1_main.html#a51fd0996a4901d99a297920182ba70f2", null ],
     [ "deleteBudget", "classfinance_1_1_main.html#ae1beda8cb006d1498a9f2fab26ec69fb", null ],
     [ "deleteSavingsGoal", "classfinance_1_1_main.html#abd220c4014efb3726aa644fa9d294d0e", null ],
     [ "deleteTransaction", "classfinance_1_1_main.html#acba18e4440e5cb2035d5c1262900dfcd", null ],
@@ -29,7 +27,7 @@ var classfinance_1_1_main =
     [ "monitorBudgetUsage", "classfinance_1_1_main.html#a53fd75a32f868913e1f8942608308cac", null ],
     [ "updateBudget", "classfinance_1_1_main.html#a70b6bdf2de3b683e511dd5951b583542", null ],
     [ "updateSavingsGoal", "classfinance_1_1_main.html#a286fec1cd442ab04331e0400b68904ef", null ],
-    [ "viewAllAccounts", "classfinance_1_1_main.html#a4760b2ac0036e944b7da6c567f654031", null ],
+    [ "viewAccount", "classfinance_1_1_main.html#a49889feebff0dfeec7d9ff269bf9a03c", null ],
     [ "viewAllBudgets", "classfinance_1_1_main.html#ab553c1c89a86f8df8829b2155bc2ce98", null ],
     [ "viewAllSavingsGoals", "classfinance_1_1_main.html#a8168412c6bd14c394e10c381413f810a", null ],
     [ "viewAllTransactions", "classfinance_1_1_main.html#a97e7e2a96940f2252339b733fdd926a5", null ],
