@@ -269,6 +269,11 @@ public class Main {
         }
 
         double amount = getDoubleInput("Enter amount: ");
+        if (amount <= 0) {
+            System.out.println("Error: Amount must be greater than 0.");
+            return;
+        }
+        
         String description = getStringInput("Enter description: ");
         String date = getStringInput("Enter date (YYYY-MM-DD): ");
 
@@ -412,6 +417,11 @@ public class Main {
 
         int transactionId = getIntInput("Enter transaction ID to edit: ");
         double amount = getDoubleInput("Enter new amount: ");
+        if (amount <= 0) {
+            System.out.println("Error: Amount must be greater than 0.");
+            return;
+        }
+        
         String description = getStringInput("Enter new description: ");
 
         system.updateTransaction(transactionId, amount, description);
