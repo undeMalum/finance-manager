@@ -174,8 +174,7 @@ public class Main {
     private static void editAccount() throws FinanceException {
         Account account = system.getAccount();
         if (account == null) {
-            System.out.println("No account exists.");
-            return;
+            throw new FinanceException("No account exists. Please create an account first.");
         }
 
         System.out.println("\n--- EDIT ACCOUNT ---");
@@ -264,14 +263,12 @@ public class Main {
      */
     private static void addTransaction() throws FinanceException {
         if (!system.hasAccount()) {
-            System.out.println("Please create an account first.");
-            return;
+            throw new FinanceException("Please create an account first.");
         }
 
         double amount = getDoubleInput("Enter amount: ");
         if (amount <= 0) {
-            System.out.println("Error: Amount must be greater than 0.");
-            return;
+            throw new FinanceException("Amount must be greater than 0.");
         }
         
         String description = getStringInput("Enter description: ");
@@ -404,12 +401,16 @@ public class Main {
      */
     private static void editTransaction() throws FinanceException {
         if (!system.hasAccount()) {
-            System.out.println("No account exists.");
-            return;
+            throw new FinanceException("No account exists.");
         }
         
         Account account = system.getAccount();
         List<Transaction> transactions = account.getTransactions();
+        
+        if (transactions.isEmpty()) {
+            throw new FinanceException("No transactions found.");
+        }
+        
         System.out.println("\nTransactions for " + account.getName() + ":");
         for (Transaction t : transactions) {
             System.out.println("ID: " + t.getId() + " | " + t.getDescription() + " | $" + t.getAmount());
@@ -418,8 +419,7 @@ public class Main {
         int transactionId = getIntInput("Enter transaction ID to edit: ");
         double amount = getDoubleInput("Enter new amount: ");
         if (amount <= 0) {
-            System.out.println("Error: Amount must be greater than 0.");
-            return;
+            throw new FinanceException("Amount must be greater than 0.");
         }
         
         String description = getStringInput("Enter new description: ");
@@ -436,12 +436,16 @@ public class Main {
      */
     private static void deleteTransaction() throws FinanceException {
         if (!system.hasAccount()) {
-            System.out.println("No account exists.");
-            return;
+            throw new FinanceException("No account exists.");
         }
         
         Account account = system.getAccount();
         List<Transaction> transactions = account.getTransactions();
+        
+        if (transactions.isEmpty()) {
+            throw new FinanceException("No transactions found.");
+        }
+        
         System.out.println("\nTransactions for " + account.getName() + ":");
         for (Transaction t : transactions) {
             System.out.println("ID: " + t.getId() + " | " + t.getDescription() + " | $" + t.getAmount());
@@ -501,6 +505,10 @@ public class Main {
     private static void createBudget() throws FinanceException {
         System.out.println("\n--- CREATE BUDGET ---");
         double limit = getDoubleInput("Enter budget limit: ");
+        
+        if (limit <= 0) {
+            throw new FinanceException("Budget limit must be greater than 0.");
+        }
 
         System.out.println("Select category:");
         System.out.println("1. FOOD");
@@ -584,9 +592,19 @@ public class Main {
      * @throws FinanceException
      */
     private static void updateBudget() throws FinanceException {
+        List<Budget> budgets = system.getBudgets();
+        if (budgets.isEmpty()) {
+            throw new FinanceException("No budgets found.");
+        }
+        
         viewAllBudgets();
         int id = getIntInput("Enter budget ID to update: ");
         double limit = getDoubleInput("Enter new limit: ");
+        
+        if (limit <= 0) {
+            throw new FinanceException("Budget limit must be greater than 0.");
+        }
+        
         system.updateBudget(id, limit);
         System.out.println("Budget updated successfully!");
     }
@@ -598,6 +616,11 @@ public class Main {
      * @throws FinanceException
      */
     private static void deleteBudget() throws FinanceException {
+        List<Budget> budgets = system.getBudgets();
+        if (budgets.isEmpty()) {
+            throw new FinanceException("No budgets found.");
+        }
+        
         viewAllBudgets();
         int id = getIntInput("Enter budget ID to delete: ");
         system.removeBudget(id);
@@ -657,7 +680,16 @@ public class Main {
     private static void createSavingsGoal() throws FinanceException {
         System.out.println("\n--- CREATE SAVINGS GOAL ---");
         String name = getStringInput("Enter goal name: ");
+        
+        if (name.trim().isEmpty()) {
+            throw new FinanceException("Goal name cannot be empty.");
+        }
+        
         double targetAmount = getDoubleInput("Enter target amount: ");
+        
+        if (targetAmount <= 0) {
+            throw new FinanceException("Target amount must be greater than 0.");
+        }
 
         SavingsGoal goal = system.createSavingsGoal(name, targetAmount);
         System.out.println("Savings goal created successfully! ID: " + goal.getId());
@@ -724,9 +756,19 @@ public class Main {
      * @throws FinanceException
      */
     private static void depositToGoal() throws FinanceException {
+        List<SavingsGoal> goals = system.getSavingsGoals();
+        if (goals.isEmpty()) {
+            throw new FinanceException("No savings goals found.");
+        }
+        
         viewAllSavingsGoals();
         int id = getIntInput("Enter goal ID: ");
         double amount = getDoubleInput("Enter deposit amount: ");
+        
+        if (amount <= 0) {
+            throw new FinanceException("Deposit amount must be greater than 0.");
+        }
+        
         system.depositToSavingsGoal(id, amount);
         System.out.println("Deposit successful!");
     }
@@ -738,11 +780,20 @@ public class Main {
      * @throws FinanceException
      */
     private static void updateSavingsGoal() throws FinanceException {
+        List<SavingsGoal> goals = system.getSavingsGoals();
+        if (goals.isEmpty()) {
+            throw new FinanceException("No savings goals found.");
+        }
+        
         viewAllSavingsGoals();
         int id = getIntInput("Enter goal ID to update: ");
         String name = getStringInput("Enter new name (or press Enter to skip): ");
         System.out.print("Enter new target amount (or 0 to skip): ");
         double targetAmount = getDoubleInput("");
+        
+        if (targetAmount < 0) {
+            throw new FinanceException("Target amount cannot be negative.");
+        }
         
         system.updateSavingsGoal(id, name, targetAmount);
         System.out.println("Savings goal updated successfully!");
@@ -755,6 +806,11 @@ public class Main {
      * @throws FinanceException
      */
     private static void deleteSavingsGoal() throws FinanceException {
+        List<SavingsGoal> goals = system.getSavingsGoals();
+        if (goals.isEmpty()) {
+            throw new FinanceException("No savings goals found.");
+        }
+        
         viewAllSavingsGoals();
         int id = getIntInput("Enter goal ID to delete: ");
         system.removeSavingsGoal(id);
