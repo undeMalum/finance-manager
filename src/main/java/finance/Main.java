@@ -87,7 +87,7 @@ public class Main {
         System.out.println("4. Manage Savings Goals");
         System.out.println("5. Generate Monthly Report");
         System.out.println("6. Export Data");
-        System.out.println("7. Import Data");
+        //System.out.println("7. Import Data");
         System.out.println("0. Exit");
         System.out.println("========================================");
     }
