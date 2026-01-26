@@ -1,0 +1,41 @@
+{
+  "account": {
+    "id": 1,
+    "name": "I Don't Really Know",
+    "balance": 1000.0,
+    "type": "ADULT"
+  },
+  "transactions": [
+    {
+      "id": 1,
+      "amount": 1500.0,
+      "description": "Some Money #2",
+      "date": "2026-01-01",
+      "category": "OTHER",
+      "type": "INCOME"
+    },
+    {
+      "id": 2,
+      "description": "Some Building I Live In",
+      "date": "2026-01-05",
+      "category": "OTHER",
+      "type": "EXPENSE"
+    }
+  ],
+  "budgets": [
+    {
+      "id": 1,
+      "limit": 50000.0,
+      "currentUsage": 500.0,
+      "category": "OTHER"
+    }
+  ],
+  "savingsGoals": [
+    {
+      "id": 1,
+      "name": "Some Pennies for WW3",
+      "targetAmount": 5000.0,
+      "currentAmount": 1000.0
+    }
+  ]
+}
